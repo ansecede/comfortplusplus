@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./App/NavBar";
-import Home from "./App/Home";
+import Home from "./App/Home/Home";
 import Reports from "./App/Reports";
 import About from "./App/About";
 import Login from "./Authentication/Login";
