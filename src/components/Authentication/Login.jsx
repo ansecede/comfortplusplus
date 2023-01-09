@@ -1,22 +1,35 @@
+import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React from "react";
 import { useEffect } from "react";
 import chillManBg from "../../assets/young-man-sitting-nobg.png";
 import { auth } from "../../config/firebase";
 import Form from "./Form";
 import "./login.css";
+import Register from "./Register";
+import { getUserEmail } from "../../utils/homeUtils";
 
 function Login() {
-  async function doSingIn(email, password) {
+  const [wantsToRegister, setWantsToRegister] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  async function doSingIn(username, password) {
+    const [email, exists] = await getUserEmail(username);
+    if (!exists) {
+      setFailed(false);
+      setUserNotFound(true);
+      return;
+    }
     try {
       let response = await signInWithEmailAndPassword(auth, email, password);
-      if (response && response.user) {
-        alert("Success ✅", "Authenticated successfully");
-      }
+      console.log(response && response.user);
+      console.log(response);
+      console.log(response.user);
     } catch (e) {
-      alert("Denied ⛔", "User or password are incorrect");
       console.error(e.message);
       console.error(e.code);
+      setUserNotFound(false);
+      setFailed(true);
     }
   }
 
@@ -32,7 +45,27 @@ function Login() {
           src={chillManBg}
           alt=""
         />
-        <Form signInHandler={doSingIn} />
+        <Form signInHandler={doSingIn} registerSetter={setWantsToRegister}>
+          {failed ? (
+            <div className="text-emerald-400 text-center mt-4">
+              Incorrect password
+            </div>
+          ) : (
+            <></>
+          )}
+          {userNotFound ? (
+            <div className="text-emerald-400 text-center mt-4">
+              User not found
+            </div>
+          ) : (
+            <></>
+          )}
+        </Form>
+        {/* {wantsToRegister ? (
+          <Register registerSetter={setWantsToRegister} />
+        ) : (
+          <Form signInHandler={doSingIn} registerSetter={setWantsToRegister} />
+        )} */}
       </div>
     </>
   );

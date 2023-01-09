@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import avatar from "../../../assets/avatar-profile.jpg";
 import { auth } from "../../../config/firebase";
 import { signOut } from "firebase/auth";
-import { AuthContext } from "../../Stack";
 
 function ProfileCard({ user }) {
   return (
@@ -16,9 +15,11 @@ function ProfileCard({ user }) {
 
       <div className="mt-8">
         <h2 className="text-white font-bold text-2xl">Welcome</h2>
-        <p className="text-white font-bold">{user.email}</p>
+        <p className="text-white font-bold">{user.displayName}</p>
       </div>
-      <p className="text-emerald-400 font-semibold mt-2.5">Administrador</p>
+      <p className="text-emerald-400 font-semibold mt-2.5">
+        {user.displayName === "Admin" ? "Administrador" : "Usuario"}
+      </p>
       <div className="mt-3 text-white text-sm">
         <span className="text-gray-400 font-semibold">Edificio: </span>
         <span>11C</span>

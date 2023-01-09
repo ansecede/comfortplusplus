@@ -4,6 +4,7 @@ import {
   recCodeToTemp,
   formatTemperature,
   realtimeDbHandlers,
+  getUserEmail,
 } from "../../../utils/homeUtils";
 import useGetTemperatureCode from "../../../utils/useGetTemperatureCode";
 import useGetRecomendation from "../../../utils/useGetRecomendation";
@@ -69,20 +70,6 @@ function Home() {
             <h1 className="mt-5">Cuentanos, ¿qué sientes en este momento?</h1>
           </div>
 
-          {/* <button
-            id="borrar"
-            className="p-4 mx-4 rounded bg-gray-300"
-            onClick={() => {
-              console.log(currentUser);
-              console.log(authState);
-              console.log(temperature);
-              console.log(recCodeToTemp(temperature));
-              console.log(formatTemperature(recCodeToTemp(temperature)));
-            }}
-          >
-            show
-          </button> */}
-
           {/*---------------------------- Botones para votar ----------------------------*/}
           <div className="inline-block text-center w-full mb-4">
             <div className="float-left px-[2px] sm:px-4 w-1/3">
@@ -129,6 +116,18 @@ function Home() {
             </div>
           </div>
           <Timer />
+        </div>
+        <div>
+          {/* <button
+            onClick={() => {
+              getUserEmail("admin");
+              // updateProfile(currentUser, { displayName: "Admin" });
+              // setAdmin(currentUser.email, currentUser.uid);
+              // setUid("admin", currentUser.uid);
+            }}
+          >
+            show
+          </button> */}
         </div>
       </div>
 

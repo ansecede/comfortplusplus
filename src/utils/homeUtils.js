@@ -1,5 +1,6 @@
-import { rtdb } from "../config/firebase";
+import { rtdb, fsdb } from "../config/firebase";
 import { increment, ref, set, update } from "firebase/database";
+import { doc, getDoc } from "firebase/firestore";
 
 export function realtimeDbHandlers() {
   const comfortStates = ["cold", "neutral", "warm"];
@@ -58,4 +59,35 @@ export function formatTemperature(temperature) {
     return temperature + "ºC";
   }
   return temperature;
+}
+
+export async function getUserEmail(username) {
+  let exists = null,
+    email = null;
+  const userNameRef = doc(fsdb, "usernames", username);
+  const userNameDoc = await getDoc(userNameRef);
+  if (!userNameDoc.exists()) {
+    console.log("Username not found!");
+    exists = false;
+    return [email, exists];
+  }
+
+  const uidRef = doc(fsdb, "users", userNameDoc.data().uid);
+  const uidDoc = await getDoc(uidRef);
+  if (uidDoc.exists()) {
+    exists = true;
+    email = uidDoc.data().email;
+    return [email, exists];
+  }
+}
+
+export async function getUserRole(username) {
+  const userNameRef = doc(fsdb, "usernames", username);
+  const userNameDoc = await getDoc(userNameRef);
+
+  const uidRef = doc(fsdb, "users", userNameDoc.data().uid);
+  const uidDoc = await getDoc(uidRef);
+  if (uidDoc.exists()) {
+    return uidDoc.data().role;
+  }
 }
