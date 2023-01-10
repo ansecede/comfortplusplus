@@ -4,7 +4,7 @@ import {
   recCodeToTemp,
   formatTemperature,
   realtimeDbHandlers,
-  getUserEmail,
+  getUserData,
 } from "../../../utils/homeUtils";
 import useGetTemperatureCode from "../../../utils/useGetTemperatureCode";
 import useGetRecomendation from "../../../utils/useGetRecomendation";
@@ -12,12 +12,23 @@ import { AuthContext } from "../../Stack";
 import { BsThermometerSnow } from "react-icons/bs";
 import { IoHappyOutline } from "react-icons/io5";
 import { WiHot } from "react-icons/wi";
-import Timer from "../Timer";
+import Timer from "./Timer";
 import ProfileCard from "./ProfileCard";
+import AdminPanel from "./AdminPanel";
 
 function Home() {
   //Para ver usuario logueado. Button id=Borrar
   const [currentUser, authState] = useContext(AuthContext);
+  const [userRole, setUserRole] = useState(null);
+  const [userName, setUserName] = useState(null);
+
+  async function resolveData() {
+    const [role, username] = await getUserData(currentUser.uid);
+    setUserRole(role);
+    setUserName(username);
+  }
+
+  resolveData();
 
   const temperature = useGetTemperatureCode(0);
   const displayTemperature = formatTemperature(recCodeToTemp(temperature));
@@ -29,8 +40,7 @@ function Home() {
   Ideas o cosas necesarias para mejorar el UI/UX
   -Poner un timer que avise cuanto falta para el siguiente cambio de estado
   -Mejorar el feedback cuando se presiona un boton de comfort
-  -Mejorar lo de prender, apagar, y cambiar la temperatura del aire
-  - 
+  -Hacer que lo botones se blooquen cuando vote cualquier instancia del usuario estudiante. Desbloquear cuando llegue la recomendación. Es decir cada 15 minutos.
   */
 
   useEffect(() => {
@@ -42,7 +52,7 @@ function Home() {
     <div className="flex-grow flex flex-col md:flex-row md:flex p-8 ">
       {/* Parte Home con funcionalidades */}
       <div className="md:p-6 md:mr-6 md:w-2/3 md:border-r-2 md:border-r-gray-400 flex flex-col justify-center items-center">
-        <div className="bg-gray-300 rounded-2xl px-8 py-6 shadow-lg my-10 w-5/6 h-11/12">
+        <div className="bg-gray-800 rounded-2xl px-8 py-6 shadow-lg my-10 w-5/6 h-11/12 text-gray-50">
           <h1>
             <Link to={"/about"} className="underline">
               Acerca del proyecto
@@ -53,26 +63,24 @@ function Home() {
             <h1 className="font-semibold text-xl">
               {displayTemperature ? displayTemperature : "Cargando..."}
             </h1>
-            <label className="mt-4">Cambiar temperatura del aire:</label>
-            <input
-              className="caret-transparent p-2 rounded w-1/2 text-center"
-              type="number"
-              name="ACtemp"
-              min={16}
-              max={24}
-              value={temperature ? recCodeToTemp(temperature) : "0"}
-              onKeyDown={(event) => event.preventDefault()}
-              onChange={(value) => {
-                let temp = parseInt(value.target.value);
-                setRec(recCodeToTemp(temp));
-              }}
-            />
-            <h1 className="mt-5">Cuentanos, ¿qué sientes en este momento?</h1>
           </div>
+          {userRole === "admin" ? (
+            <AdminPanel
+              displayTemperature={displayTemperature}
+              temperature={temperature}
+              recCodeToTemp={recCodeToTemp}
+              setRec={setRec}
+            />
+          ) : (
+            <></>
+          )}
 
           {/*---------------------------- Botones para votar ----------------------------*/}
-          <div className="inline-block text-center w-full mb-4">
-            <div className="float-left px-[2px] sm:px-4 w-1/3">
+          <div className="inline-block text-center w-full mb-4 text-black">
+            <h1 className="mt-5 text-gray-50">
+              Cuentanos, ¿qué sientes en este momento?
+            </h1>
+            <div className="float-left px-[2px] sm:px-4 w-1/3 ">
               <div className="flex flex-col items-center">
                 <BsThermometerSnow className="p-4" color="#60a5fa" size={80} />
               </div>
@@ -88,7 +96,7 @@ function Home() {
             </div>
             <div className="float-left px-[2px] sm:px-4 w-1/3">
               <div className="flex flex-col items-center">
-                <IoHappyOutline className="p-4" color="#374151" size={80} />
+                <IoHappyOutline className="p-4" color="#FFF" size={80} />
               </div>
               <button
                 className="w-full rounded bg-emerald-400 h-[28px]"
@@ -117,23 +125,21 @@ function Home() {
           </div>
           <Timer />
         </div>
-        <div>
-          {/* <button
+        {/* <div>
+          <button
+            className="bg-red-500"
             onClick={() => {
-              getUserEmail("admin");
-              // updateProfile(currentUser, { displayName: "Admin" });
-              // setAdmin(currentUser.email, currentUser.uid);
-              // setUid("admin", currentUser.uid);
+              console.log(currentUser);
             }}
           >
             show
-          </button> */}
-        </div>
+          </button>
+        </div> */}
       </div>
 
       {/*---------------------------- Profile segment ----------------------------*/}
       <div className="md:w-1/3 md:border-opacity-0 border-t-2 border-t-gray-400 flex flex-col justify-center items-center">
-        <ProfileCard user={currentUser} />
+        <ProfileCard role={userRole} username={userName} />
       </div>
     </div>
   );

@@ -81,13 +81,12 @@ export async function getUserEmail(username) {
   }
 }
 
-export async function getUserRole(username) {
-  const userNameRef = doc(fsdb, "usernames", username);
-  const userNameDoc = await getDoc(userNameRef);
-
-  const uidRef = doc(fsdb, "users", userNameDoc.data().uid);
+export async function getUserData(uid) {
+  const uidRef = doc(fsdb, "users", uid);
   const uidDoc = await getDoc(uidRef);
-  if (uidDoc.exists()) {
-    return uidDoc.data().role;
-  }
+  // console.log(uidDoc.data());
+
+  const role = await uidDoc.data().role;
+  const username = await uidDoc.data().username;
+  return [role, username];
 }

@@ -30,7 +30,7 @@ function Timer() {
 
   return (
     <div
-      className="timer bg-gray-500 inline-block p-3 mt-3 text-center w-full"
+      className="timer bg-gray-500 text-black inline-block p-3 mt-3 text-center w-full"
       role="timer"
     >
       <h1 className="font-semibold text-lg">Cronometro en construcción...</h1>

@@ -38,7 +38,7 @@ function Reports() {
     return (
       <div className="flex flex-col items-center justify-center mt-15 pt-10">
         <AiOutlineLoading3Quarters
-          className="text-gray-500 animate-spin"
+          className="text-emerald-400 animate-spin"
           size={200}
         />
         <h1 className="font-semibold text-3xl mt-8">Loading...</h1>

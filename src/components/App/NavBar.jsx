@@ -11,11 +11,11 @@ function NavBar() {
   return (
     <nav className="w-full flex bg-gray-800 py-6 justify-between items-center navbar">
       <Link to={"/about"}>
-        <h1 className="text-xl font-semibold text-slate-50 sm:pl-20 pl-5">
+        <h1 className="text-xl font-semibold text-gray-50 sm:pl-20 pl-5">
           Comfort++
         </h1>
       </Link>
-      <ul className="list-none hidden sm:flex justify-end items-center pr-20 text-slate-50 ">
+      <ul className="list-none hidden sm:flex justify-end items-center pr-20 text-gray-50 ">
         <li className="mr-10">
           <Link to={"/"}>Home</Link>
         </li>
@@ -46,7 +46,7 @@ function NavBar() {
         className={
           !toggle
             ? "hidden"
-            : "absolute top-0 left-0 w-full h-screen bg-gray-800 text-slate-50 flex flex-col justify-center text-center"
+            : "absolute top-0 left-0 w-full h-screen bg-gray-800 text-gray-50 flex flex-col justify-center text-center"
         }
       >
         <li className="text-5xl py-6">

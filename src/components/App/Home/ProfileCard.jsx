@@ -3,7 +3,7 @@ import avatar from "../../../assets/avatar-profile.jpg";
 import { auth } from "../../../config/firebase";
 import { signOut } from "firebase/auth";
 
-function ProfileCard({ user }) {
+function ProfileCard({ role, username }) {
   return (
     <div className="w-72 lg:w-72 md:w-[267px] bg-gray-800 rounded-2xl px-8 py-6 shadow-lg my-10 whitespace-pre-line">
       <div className="flex items-center justify-between">
@@ -15,10 +15,10 @@ function ProfileCard({ user }) {
 
       <div className="mt-8">
         <h2 className="text-white font-bold text-2xl">Welcome</h2>
-        <p className="text-white font-bold">{user.displayName}</p>
+        <p className="text-white font-bold">{username}</p>
       </div>
       <p className="text-emerald-400 font-semibold mt-2.5">
-        {user.displayName === "Admin" ? "Administrador" : "Usuario"}
+        {role === "admin" ? "Administrador" : "Usuario Regular"}
       </p>
       <div className="mt-3 text-white text-sm">
         <span className="text-gray-400 font-semibold">Edificio: </span>
