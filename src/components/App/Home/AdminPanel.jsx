@@ -5,7 +5,7 @@ function AdminPanel({ temperature, recCodeToTemp, setRec }) {
     <div className="flex flex-col justify-center items-center mt-4">
       <label className="mt-4">Cambiar temperatura del aire:</label>
       <input
-        className="caret-transparent p-2 rounded w-1/2 text-center"
+        className="caret-transparent p-2 rounded w-1/2 text-center text-black"
         type="number"
         name="ACtemp"
         min={16}
