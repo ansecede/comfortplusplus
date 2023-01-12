@@ -25,7 +25,7 @@ export function realtimeDbHandlers() {
 
 export function recCodeToTemp(code) {
   const tempCases = [
-    22,
+    20,
     "OFF",
     16,
     17,

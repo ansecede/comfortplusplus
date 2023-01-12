@@ -30,11 +30,10 @@ function Home() {
 
   resolveData();
 
-  const temperature = useGetTemperatureCode(0);
-  const displayTemperature = formatTemperature(recCodeToTemp(temperature));
-
   const [setRec, incrementUserComfortState] = realtimeDbHandlers();
   const done = useGetRecomendation(setRec);
+  const temperature = useGetTemperatureCode(0, setRec);
+  const displayTemperature = formatTemperature(recCodeToTemp(temperature));
 
   /*
   Ideas o cosas necesarias para mejorar el UI/UX
