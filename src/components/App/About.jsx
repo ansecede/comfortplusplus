@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { aboutLangProps, langOptions } from "../../config/constants";
+import useSetTitle from "../../utils/useSetTitle";
 import Instructions from "./Instructions";
 
 function About() {
+  useSetTitle("About");
   const [selectedLang, setSelectedLang] = useState("spanish");
-
-  useEffect(() => {
-    document.title = "About - Comfort++";
-  }, []);
 
   function CreateLangOptions({
     language,

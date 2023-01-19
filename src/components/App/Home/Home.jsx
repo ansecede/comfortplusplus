@@ -15,8 +15,12 @@ import { WiHot } from "react-icons/wi";
 import Timer from "./Timer";
 import ProfileCard from "./ProfileCard";
 import AdminPanel from "./AdminPanel";
+import useSetTitle from "../../../utils/useSetTitle";
+import mqttService from "../../../utils/mqttUtils";
 
 function Home() {
+  useSetTitle("Home");
+
   //Para ver usuario logueado. Button id=Borrar
   const [currentUser, authState] = useContext(AuthContext);
   const [userRole, setUserRole] = useState(null);
@@ -31,6 +35,7 @@ function Home() {
   resolveData();
 
   const [setRec, incrementUserComfortState] = realtimeDbHandlers();
+  const { publish, topic } = mqttService;
   const done = useGetRecomendation(setRec);
   const temperature = useGetTemperatureCode(0, setRec);
   const displayTemperature = formatTemperature(recCodeToTemp(temperature));
@@ -41,10 +46,6 @@ function Home() {
   -Mejorar el feedback cuando se presiona un boton de comfort
   -Hacer que lo botones se blooquen cuando vote cualquier instancia del usuario estudiante. Desbloquear cuando llegue la recomendación. Es decir cada 15 minutos.
   */
-
-  useEffect(() => {
-    document.title = "Home - Comfort++";
-  }, []);
 
   return (
     // Contenedor completo
@@ -87,6 +88,7 @@ function Home() {
                 className="w-full rounded bg-emerald-400 h-[28px]"
                 onClick={() => {
                   incrementUserComfortState(0);
+                  publish(topic, "cold");
                   alert("Se registro su voto correctamente");
                 }}
               >
@@ -101,6 +103,7 @@ function Home() {
                 className="w-full rounded bg-emerald-400 h-[28px]"
                 onClick={() => {
                   incrementUserComfortState(1);
+                  publish(topic, "neutral");
                   alert("Se registro su voto correctamente");
                 }}
               >
@@ -115,6 +118,7 @@ function Home() {
                 className="w-full rounded bg-emerald-400 h-[28px]"
                 onClick={() => {
                   incrementUserComfortState(2);
+                  publish(topic, "warm");
                   alert("Se registro su voto correctamente");
                 }}
               >

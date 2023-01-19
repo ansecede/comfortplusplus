@@ -10,13 +10,11 @@ import {
 import VotesChart from "./VotesChart";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./reports.css";
+import useSetTitle from "../../utils/useSetTitle";
 
 function Reports() {
+  useSetTitle("Reports");
   const [votes, setVotes] = useState([]);
-
-  useEffect(() => {
-    document.title = "Reports - Comfort++";
-  }, []);
 
   useEffect(() => {
     setTimeout(() => {
