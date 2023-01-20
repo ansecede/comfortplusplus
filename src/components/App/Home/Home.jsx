@@ -127,6 +127,14 @@ function Home() {
             </div>
           </div>
           <Timer />
+          <button
+            className="w-full rounded bg-emerald-400 h-[28px]"
+            onClick={() => {
+              publish(topic, "Hello React");
+            }}
+          >
+            Calor
+          </button>
         </div>
         {/* <div>
           <button
