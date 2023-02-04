@@ -2,7 +2,7 @@ import React from "react";
 import mqttHandlers from "../../../utils/mqttUtils";
 import "./adminpanel.css";
 
-function AdminPanel({ temperature, recCodeToTemp, setRec }) {
+function AdminPanel({ temperature, recCodeToTemp, setRec, publish, topic }) {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex flex-col justify-center items-center mt-4">
@@ -18,12 +18,16 @@ function AdminPanel({ temperature, recCodeToTemp, setRec }) {
           onChange={(value) => {
             let temp = parseInt(value.target.value);
             setRec(recCodeToTemp(temp));
+            publish(topic, recCodeToTemp(temp) + "");
           }}
         />
       </div>
       <div
         className="mt-4 p-4 text-gray-200 flex justify-center border border-gray-600 rounded-lg lg:w-2/3 "
-        onChange={(event) => setRec(parseInt(event.target.value))}
+        onChange={(event) => {
+          setRec(parseInt(event.target.value));
+          publish(topic, event.target.value);
+        }}
       >
         <label className="font-medium text-lg mr-4" htmlFor="">
           Estado:

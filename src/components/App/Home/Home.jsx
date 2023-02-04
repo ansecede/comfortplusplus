@@ -70,11 +70,12 @@ function Home() {
               temperature={temperature}
               recCodeToTemp={recCodeToTemp}
               setRec={setRec}
+              publish={publish}
+              topic={topic}
             />
           ) : (
             <></>
           )}
-
           {/*---------------------------- Botones para votar ----------------------------*/}
           <div className="inline-block text-center w-full mb-4 text-black">
             <h1 className="mt-5 text-gray-50">
@@ -88,7 +89,6 @@ function Home() {
                 className="w-full rounded bg-emerald-400 h-[28px]"
                 onClick={() => {
                   incrementUserComfortState(0);
-                  publish(topic, "cold");
                   alert("Se registro su voto correctamente");
                 }}
               >
@@ -103,7 +103,6 @@ function Home() {
                 className="w-full rounded bg-emerald-400 h-[28px]"
                 onClick={() => {
                   incrementUserComfortState(1);
-                  publish(topic, "neutral");
                   alert("Se registro su voto correctamente");
                 }}
               >
@@ -118,7 +117,6 @@ function Home() {
                 className="w-full rounded bg-emerald-400 h-[28px]"
                 onClick={() => {
                   incrementUserComfortState(2);
-                  publish(topic, "warm");
                   alert("Se registro su voto correctamente");
                 }}
               >
@@ -126,15 +124,7 @@ function Home() {
               </button>
             </div>
           </div>
-          <Timer />
-          <button
-            className="w-full rounded bg-emerald-400 h-[28px]"
-            onClick={() => {
-              publish(topic, "Hello React");
-            }}
-          >
-            Calor
-          </button>
+          <Timer />{" "}
         </div>
         {/* <div>
           <button
