@@ -73,4 +73,32 @@ const url = "mqtt://${ipNgrok}:${puertoNgrok}";
 
 Todos estos valores son accesibles desde la Raspberry.
 
-## Dockerizar la página
+## Como dockerizar los servicios
+### NOTA
+Antes de Dockerizar realizar los cambios correspondientes al servicio Mqtt, dependiendo del escenario que se este trabajando.
+
+Para crear un contenedor de la pagina y del servicio, solo hay que ejecutar unos cuantos comandos, ya que el archivo Dockerfile ya esta creado de forma que todo funcione correctamente. Los comandos son:
+
+Para construir el contendor:
+```
+docker build -t [any name] .
+```
+Para la pagina web, correr la imagen en el puerto 5173:
+```
+docker run --rm -p 5173:5173 --name [name of the container] [your docker image name]
+```
+Para el mqtt, correr la imagen en el puerto 3000:
+```
+docker run --rm -p 5173:5173 --name [name of the container] [your docker image name]
+```
+
+Comandos útiles para revisar el estado de las imagenes creadas y contenedores activos:
+```
+docker images
+docker ps
+```
+### NOTA 2
+Correr los comandos en el directorio raiz de cada proyecto, lo cuales serían el directorio raíz ara la pagina y el `./servicioMqtt` para la API de Express.
+
+## Como ingresar a la página desde una computadora de la misma red.
+Se necesita la IP de la maquina virtual en la cual se este corriendo los programas dockerizados, con ella y el puerto (5173) se puede acceder desde cualquier computador de la red local.
