@@ -89,7 +89,7 @@ docker run --rm -p 5173:5173 --name [name of the container] [your docker image n
 ```
 Para el mqtt, correr la imagen en el puerto 3000:
 ```
-docker run --rm -p 5173:5173 --name [name of the container] [your docker image name]
+docker run --rm -p 3000:3000 --name [name of the container] [your docker image name]
 ```
 
 Comandos útiles para revisar el estado de las imagenes creadas y contenedores activos:
