@@ -1,6 +1,6 @@
 const mqtt = require("mqtt");
 
-const url = "mqtt://0.tcp.sa.ngrok.io:15512";
+const url = "mqtt://0.tcp.ngrok.io:14928";
 
 // Create an MQTT client instance
 const options = {
@@ -17,4 +17,4 @@ const options = {
 const client = mqtt.connect(url, options);
 
 // client.publish("integradora/confort", "jesus funciona");
-client.publish("prueba/test", "jesus funciona");
+client.publish("prueba", "Esto es una prueba");

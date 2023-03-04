@@ -124,7 +124,7 @@ function Home() {
               </button>
             </div>
           </div>
-          <Timer />{" "}
+          {/* <Timer />{" "} */}
         </div>
         {/* <div>
           <button

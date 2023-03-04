@@ -22,9 +22,6 @@ function Login() {
     }
     try {
       let response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response && response.user);
-      console.log(response);
-      console.log(response.user);
     } catch (e) {
       console.error(e.message);
       console.error(e.code);

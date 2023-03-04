@@ -1,4 +1,4 @@
-const url = "mqtt://0.tcp.sa.ngrok.io:15512";
+const url = "mqtt://192.168.10.178";
 
 // Create an MQTT client instance
 const options = {
